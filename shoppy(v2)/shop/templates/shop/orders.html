@@ -1,0 +1,30 @@
+{% extends 'shop/basic.html' %}
+
+{% block title%} My orders{% endblock %}
+{% block body %}
+
+{% for order in orders%}
+<div class="containter my-5 py-3 mx-5 px-5">
+<div class="card ">
+    <h5 class="card-header">ordered on({{order.date_created}})</h5>
+    <div class="card-body">
+        
+      <h5 class="card-title">Order items={{order.items_json}}</h5>
+     
+      <p class="card-text"></p>
+      <p>ordertotal={{order.amount}}</p>
+     
+    </div>
+  </div>
+</div> 
+{% endfor %}
+
+
+{% endblock %}
+{% block js %}
+<script>
+    
+</script>
+
+
+{% endblock %}
