@@ -5,7 +5,8 @@ from math import ceil
 from django.contrib import messages
 from .forms import CreateUserForm
 from django.contrib.auth import authenticate, login, logout
-from .decorators import unauthenticated_user
+from django.contrib.auth.models import User
+from .filters import OrderFilter
 from django.contrib.auth.models import User
 
 
@@ -160,16 +161,18 @@ def dashboard(request):
     order_delivered = order_status.filter(status="Delivered")
 
     details = Ordercheckout.objects.all()
+    users = User.objects.values('username', 'email')
 
     prods = Ordercheckout.objects.values("items_json", "date_created",)
 
     user = Order.objects.values('ordercheckout__username')
 
-    print(details)
-    print(order_status)
-    print(user)
+    myFilter = OrderFilter(request.GET, queryset=users)
+    myFilter1 = OrderFilter(request.GET, queryset=details)
+    users = myFilter.qs
+    details = myFilter1.qs
 
-    context = {'details': details, 'order_count': order_count, 'order_delivered_count':
+    context = {'myFilter': myFilter, 'users': users, 'details': details, 'order_count': order_count, 'order_delivered_count':
                order_delivered_count, 'order_pending_count': order_pending_count}
 
     return render(request, 'dashboard/dashboard.html', context)

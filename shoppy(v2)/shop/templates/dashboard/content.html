@@ -7,17 +7,22 @@
 		<h5>CUSTOMERS:</h5>
 		<hr>
 		<div class="card card-body">
-			<table class="table table-sm">
+            <form method="get">
+				{{myFilter.form}}
+		    <button class="btn btn-primary" type="submit">Search</button>
+		    </form>
+            
+            <table class="table table-sm">
 				<tr>
-					<th></th>
+					
 					<th>Customer</th>
-					<th>Phone</th>
+					<th>Email</th>
 				</tr>
                    
-                {% for detail in details %}
-				
+                {% for detail in users %}
+				  
 					<tr>
-						<td><a class="btn btn-sm btn-info" href="">View</a></td>
+						
 						<td>{{detail.username}}</td>
 						<td>{{detail.email}}</td>
 					</tr>
