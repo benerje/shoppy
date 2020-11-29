@@ -51,6 +51,10 @@
               <a class="nav-link" href="/login">login</a>
             </li>
             {% endif %}
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'dashboard'%}">Dashboard</a>
+            </li>
           </ul>
          
           <form method='get' action='/search/' class="form-inline my-2 my-lg-0">

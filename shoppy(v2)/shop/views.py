@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Product, Contact, Ordercheckout
+from .models import Product, Contact, Ordercheckout, Order
 from math import ceil
 from django.contrib import messages
-from .forms import CreateUserForm, CustomerForm
+from .forms import CreateUserForm
 from django.contrib.auth import authenticate, login, logout
 from .decorators import unauthenticated_user
 from django.contrib.auth.models import User
@@ -148,3 +148,28 @@ def orders(request):
     orders.reverse()
     context = {'orders': orders}
     return render(request, 'shop/orders.html', context)
+
+# dashboard views
+
+
+def dashboard(request):
+    order_status = Order.objects.all()
+    order_count = order_status.count()
+    order_delivered_count = order_status.filter(status="Delivered").count()
+    order_pending_count = order_status.filter(status="Pending").count()
+    order_delivered = order_status.filter(status="Delivered")
+
+    details = Ordercheckout.objects.all()
+
+    prods = Ordercheckout.objects.values("items_json", "date_created",)
+
+    user = Order.objects.values('ordercheckout__username')
+
+    print(details)
+    print(order_status)
+    print(user)
+
+    context = {'details': details, 'order_count': order_count, 'order_delivered_count':
+               order_delivered_count, 'order_pending_count': order_pending_count}
+
+    return render(request, 'dashboard/dashboard.html', context)

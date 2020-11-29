@@ -1,0 +1,58 @@
+
+
+<br>
+
+<div class="row">
+	<div class="col-md-5">
+		<h5>CUSTOMERS:</h5>
+		<hr>
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th></th>
+					<th>Customer</th>
+					<th>Phone</th>
+				</tr>
+                   
+                {% for detail in details %}
+				
+					<tr>
+						<td><a class="btn btn-sm btn-info" href="">View</a></td>
+						<td>{{detail.username}}</td>
+						<td>{{detail.email}}</td>
+					</tr>
+                    {% endfor %}
+
+			</table>
+		</div>
+	</div>
+
+	<div class="col-md-7">
+		<h5>List Of ORDERS</h5>
+		<hr>
+		<div class="card card-body">
+			
+			<table class="table table-sm">
+				<tr>
+					<th>Product</th>
+					<th>Date_ordered</th>
+					<th>Order by</th>
+					<th>Amount</th>
+					
+                </tr>
+                {% for detail in details %}
+					<tr>
+						<td>{{detail.items_json}}</td>
+						<td>{{detail.date_created}}</td>
+						<td>{{detail.username}}</td>
+						<td>Rs.{{detail.amount}}</td>
+					
+
+                    </tr>	
+                    {% endfor %}	
+			</table>
+		</div>
+	</div>
+
+</div>
+
